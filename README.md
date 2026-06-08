@@ -103,6 +103,9 @@ curl -X POST http://localhost:3000/orders \
 splunk 검색 : index=main sourcetype=_json
 <img src="splunk-log-project/docs/splunk.png" alt="Splunk Dashboard" width="800">
 
+시각화 도 가능
+<img src="splunk-log-project/docs/splunk2.png" alt="Splunk Dashboard" width="800">
+
 ## 향후 계획
 
 * AWS EC2 배포
