@@ -126,6 +126,13 @@ function requestLogger(req, res, next) {
       requestId,
       // 요청 추적용 고유 ID
       // 컨트롤러 로그와 이 로그를 requestId로 연결해서 조회 가능
+
+      item: req.body?.item,
+      // 주문한 상품명 (예: "keyboard")
+      // req.body는 JSON 파싱된 객체 (express.json() 미들웨어 덕분)
+      // ?. (optional chaining): body가 없거나 item이 없으면 undefined → 로그에 item: undefined 기록
+      // Splunk에서 상품별 주문 추적:
+      //   index=main item="keyboard"
     };
 
     req.logger.info(logData);

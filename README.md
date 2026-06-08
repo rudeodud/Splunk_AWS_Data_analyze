@@ -57,7 +57,9 @@ npm run dev
 curl -X POST http://localhost:3000/orders \
 -H "Content-Type: application/json" \
 -d '{"item":"keyboard","quantity":2}'
+
 ```
+splunk 검색 : index=main sourcetype=_json
 <img src="splunk-log-project/docs/splunk.png" alt="Splunk Dashboard" width="800">
 
 ## 향후 계획
