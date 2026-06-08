@@ -13,15 +13,56 @@ AWS 환경에서 Splunk를 연동하여 애플리케이션 로그를 수집, 분
 ## 프로젝트 구조
 
 ```text
-Splunk_AWS/
-├── splunk-log-project/
-│   └── backend/
-├── frontend/
-├── infra/
-├── splunk/
+splunk-log-project/
+│
+├── backend/                          # Node.js API 서버
+│   ├── src/
+│   │   ├── config/
+│   │   │   ├── logger.js             # Pino Logger 설정 (파일 + 터미널 동시 출력)
+│   │   │   └── splunkHec.js          # Splunk HEC 직접 전송 함수
+│   │   │
+│   │   ├── middlewares/
+│   │   │   ├── requestLogger.js      # HTTP 요청/응답 로그 미들웨어
+│   │   │   └── errorHandler.js       # 에러 로그 미들웨어
+│   │   │
+│   │   ├── routes/
+│   │   │   └── orders.js             # 주문 라우터
+│   │   │
+│   │   ├── controllers/
+│   │   │   └── orderController.js    # 주문 컨트롤러 (비즈니스 로직)
+│   │   │
+│   │   └── app.js                    # Express 앱 진입점
+│   │
+│   ├── logs/
+│   │   └── app.log                   # JSON 형식 로그 파일 (Splunk UF가 모니터링)
+│   │
+│   ├── .env                          # 환경변수
+│   └── package.json
+│
+├── splunk/                           # Splunk 설정 파일
+│   ├── universal-forwarder/
+│   │   ├── inputs.conf               # 모니터링할 로그 경로 설정
+│   │   └── outputs.conf              # Splunk Cloud 전송 설정
+│   └── dashboards/
+│       └── node_app_dashboard.xml    # Splunk 대시보드 XML
+│
+├── infra/                            # Terraform (AWS 인프라)
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   └── modules/
+│       ├── vpc/
+│       ├── ec2/
+│       └── rds/
+│
+├── frontend/                         # 간단한 관리 UI
+│   ├── index.html
+│   └── main.js
+│
 ├── docs/
-├── README.md
-└── .gitignore
+│   └── architecture.png
+│
+└── README.md
 ```
 
 ## 기술 스택
