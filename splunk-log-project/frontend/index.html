@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Splunk Order API</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>📦 Splunk Order API</h1>
+
+<p>Node.js → Splunk Cloud 로그 수집 데모</p>
+
+<button onclick="createOrder('laptop', 3)">
+  노트북 주문 생성
+</button>
+
+<button onclick="createOrder('mouse', 5)">
+  마우스 주문 생성
+</button>
+
+<button onclick="createOrder('keyboard', 2)">
+  키보드 주문 생성
+</button>
+<h2>응답</h2>
+
+<pre id="result"></pre>
+
+<script>
+async function createOrder(item, quantity) {
+
+  const response = await fetch('/orders', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      item,
+      quantity
+    })
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+
+    document.getElementById('result').textContent =
+      `Error ${response.status}: ${errorText}`;
+
+    return;
+  }
+
+  const data = await response.json();
+
+  document.getElementById('result').textContent =
+    JSON.stringify(data, null, 2);
+}
+</script>
+
+</body>
+</html>
