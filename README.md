@@ -58,7 +58,7 @@ curl -X POST http://localhost:3000/orders \
 -H "Content-Type: application/json" \
 -d '{"item":"keyboard","quantity":2}'
 ```
-<img src="docs/splunk.png" alt="Splunk Dashboard" width="800">
+<img src="splunk-log-project/docs/splunk.png" alt="Splunk Dashboard" width="800">
 
 ## 향후 계획
 
