@@ -1,0 +1,2 @@
+{"level":30,"time":"2026-06-07T23:53:15.605Z","service":"order-api","environment":"dev","requestId":"d76ec7c0-abfa-408c-b3d0-eceb37897ab1","message":"Order created","item":"keyboard","quantity":2}
+{"level":30,"time":"2026-06-07T23:53:15.607Z","service":"order-api","environment":"dev","requestId":"d76ec7c0-abfa-408c-b3d0-eceb37897ab1","method":"POST","endpoint":"/orders","statusCode":200,"responseTime":2,"userId":"user-100"}
