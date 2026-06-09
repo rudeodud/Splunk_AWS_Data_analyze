@@ -1,0 +1,70 @@
+
+services:
+
+  # ── 백엔드 ──────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    # context: Dockerfile 기준 디렉토리
+
+    container_name: splunk-backend
+
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - LOG_PATH=./logs/app.log
+    # 환경변수 직접 주입
+    # 민감한 값은 나중에 AWS Secrets Manager로 관리
+
+    volumes:
+      - backend-logs:/app/logs
+    # 로그 파일을 컨테이너 밖에 영구 저장
+    # 컨테이너 재시작해도 로그 유지
+
+    networks:
+      - app-network
+    # 프론트엔드와 같은 네트워크
+    # 서비스명(backend)으로 통신 가능
+
+    restart: unless-stopped
+    # 비정상 종료 시 자동 재시작
+    # 수동 중지 시엔 재시작 안 함
+
+
+  # ── 프론트엔드 ────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    container_name: splunk-frontend
+
+    ports:
+      - "80:80"
+    # 브라우저에서 localhost:80 으로 접근
+    # nginx가 /orders 요청을 backend로 프록시
+
+    depends_on:
+      - backend
+    # backend 먼저 시작 후 frontend 시작
+
+    networks:
+      - app-network
+
+    restart: unless-stopped
+
+
+# ── 네트워크 ──────────────────────────────────
+networks:
+  app-network:
+    driver: bridge
+    # 컨테이너끼리 통신 가능한 가상 네트워크
+    # 외부에서는 ports에서 지정한 포트로만 접근
+
+
+# ── 볼륨 ──────────────────────────────────────
+volumes:
+  backend-logs:
+    # 로그 파일 영구 저장
+    # docker volume ls 로 확인 가능
