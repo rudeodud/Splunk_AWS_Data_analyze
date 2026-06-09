@@ -13,6 +13,11 @@ variable "availability_zone" {
   default = "ap-northeast-2a"
 }
 
+variable "availability_zone_b" {
+  type    = string
+  default = "ap-northeast-2b"
+}
+
 variable "vpc_cidr" {
   type    = string
   default = "10.0.0.0/16"
@@ -21,6 +26,11 @@ variable "vpc_cidr" {
 variable "public_subnet_cidr" {
   type    = string
   default = "10.0.1.0/24"
+}
+
+variable "public_subnet_b_cidr" {
+  type    = string
+  default = "10.0.4.0/24"
 }
 
 variable "private_subnet_app_cidr" {
@@ -33,6 +43,11 @@ variable "private_subnet_db_cidr" {
   default = "10.0.3.0/24"
 }
 
+variable "private_subnet_db_b_cidr" {
+  type    = string
+  default = "10.0.5.0/24"
+}
+
 variable "my_ip" {
   type = string
 }
@@ -43,13 +58,10 @@ variable "db_password" {
 }
 
 variable "splunk_token" {
-  description = "Splunk HEC 토큰"
-  type        = string
-  sensitive   = true
+  type      = string
+  sensitive = true
 }
 
 variable "splunk_host" {
-  description = "Splunk HEC 호스트"
-  type        = string
-  default     = "prd-p-9bf9k.splunkcloud.com"
+  type = string
 }

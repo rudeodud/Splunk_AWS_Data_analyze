@@ -12,7 +12,16 @@ resource "aws_subnet" "public" {
   availability_zone       = var.availability_zone
   map_public_ip_on_launch = true
 
-  tags = { Name = "${var.project_name}-public-subnet" }
+  tags = { Name = "${var.project_name}-public-subnet-a" }
+}
+
+resource "aws_subnet" "public_b" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = var.public_subnet_b_cidr
+  availability_zone       = var.availability_zone_b
+  map_public_ip_on_launch = true
+
+  tags = { Name = "${var.project_name}-public-subnet-b" }
 }
 
 resource "aws_subnet" "private_app" {
@@ -28,7 +37,15 @@ resource "aws_subnet" "private_db" {
   cidr_block        = var.private_subnet_db_cidr
   availability_zone = var.availability_zone
 
-  tags = { Name = "${var.project_name}-private-db-subnet" }
+  tags = { Name = "${var.project_name}-private-db-subnet-a" }
+}
+
+resource "aws_subnet" "private_db_b" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.private_subnet_db_b_cidr
+  availability_zone = var.availability_zone_b
+
+  tags = { Name = "${var.project_name}-private-db-subnet-b" }
 }
 
 resource "aws_internet_gateway" "main" {
@@ -68,6 +85,11 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public.id
 }
 
+resource "aws_route_table_association" "public_b" {
+  subnet_id      = aws_subnet.public_b.id
+  route_table_id = aws_route_table.public.id
+}
+
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
 
@@ -86,5 +108,10 @@ resource "aws_route_table_association" "private_app" {
 
 resource "aws_route_table_association" "private_db" {
   subnet_id      = aws_subnet.private_db.id
+  route_table_id = aws_route_table.private.id
+}
+
+resource "aws_route_table_association" "private_db_b" {
+  subnet_id      = aws_subnet.private_db_b.id
   route_table_id = aws_route_table.private.id
 }
