@@ -44,7 +44,7 @@ USER appuser
 # 이후 모든 명령은 appuser 권한으로 실행
 
 EXPOSE 3000
-# 3000 포트 사용 명시
+# 80 포트 사용 명시
 
 CMD ["node", "src/app.js"]
 # 프로덕션 환경: nodemon 대신 node 직접 실행

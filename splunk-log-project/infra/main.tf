@@ -208,7 +208,7 @@ data "aws_ami" "amazon_linux" {
 resource "aws_instance" "splunk_log_ec2_instance" {
   ami                         = data.aws_ami.amazon_linux.id
   instance_type               = "t2.micro"
-  subnet_id                   = aws_subnet.splunk_log_public_subnet1.id
+  subnet_id                   = aws_subnet.splunk_log_private_app_subnet1.id
   associate_public_ip_address = true
   key_name                    = var.key_pair_name
   vpc_security_group_ids      = [aws_security_group.splunk_log_ec2_sg.id]
@@ -298,7 +298,7 @@ resource "aws_lb_target_group_attachment" "splunk_log_tg_attachment" {
 
 resource "aws_lb_listener" "splunk_log_http" {
   load_balancer_arn = aws_lb.splunk_log_alb.arn
-  port              = 80
+  port              = 3000
   protocol          = "HTTP"
 
   default_action {
