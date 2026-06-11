@@ -37,7 +37,8 @@ splunk-log-project/
 │   │   └── app.log                   # JSON 형식 로그 파일 (Splunk UF가 모니터링)
 │   │
 │   ├── .env                          # 환경변수
-│   └── package.json
+│   ├── package.json
+│   └── Dockerfile
 │
 ├── splunk/                           # Splunk 설정 파일
 │   ├── universal-forwarder/
@@ -50,19 +51,19 @@ splunk-log-project/
 │   ├── main.tf
 │   ├── variables.tf
 │   ├── outputs.tf
-│   └── modules/
-│       ├── vpc/
-│       ├── ec2/
-│       └── rds/
+│   ├── terraform.tfvars              #안올라감
+│   └── provider.tf
+│       
 │
 ├── frontend/                         # 간단한 관리 UI
 │   ├── index.html
-│   └── main.js
-│
+│   ├── Dockerfile
+│   └── nginx.conf
+│ 
 ├── docs/
-│   └── architecture.png
 │
-└── README.md
+├── README.md
+└── docker-compose-yml
 ```
 
 ## 기술 스택
