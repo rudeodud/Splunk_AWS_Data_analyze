@@ -93,6 +93,15 @@ npm install
 npm run dev
 ```
 
+### Backend 실행
+
+```bash
+cd splunk-log-project/frontend
+npm install
+npm run dev
+```
+
+
 ### API 테스트
 
 ```bash
